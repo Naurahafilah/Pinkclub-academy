@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tennis Academy - Akademi Tenis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #FFE4E1 0%, #FFB6C1 50%, #FFC0CB 100%);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4rem 6rem;
+            background: linear-gradient(135deg, #FFE4E1 0%, #FFB6C1 100%);
+            position: relative;
+            overflow: hidden;
+            /* Hapus atau atasi konflik dari parallax di JS: position: static/relative */
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 182, 193, 0.3) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 8rem;
+            font-weight: 700;
+            line-height: 0.9;
+            color: #fff;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 3rem;
+            max-width: 450px;
+        }
+
+        .hero-button {
+            background: rgba(255, 255, 255, 0.95);
+            color: #FF1493;
+            border: 2px solid transparent;
+            padding: 1.5rem 3rem;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-button:hover {
+            background: #FF1493;
+            color: white;
+            border-color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 20, 147, 0.3);
+        }
+
+        .hero-image {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+            animation: fadeInRight 1.2s ease-out;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 8rem 2rem;
+            background: linear-gradient(180deg, #FFB6C1 0%, #FFE4E1 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.3);
+        }
+
+        .program-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .program-card:hover .program-icon {
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .program-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .program-description {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Coaches Section */
+        .coaches-section {
+            padding: 8rem 2rem;
+            background: linear-gradient(180deg, #FFE4E1 0%, #FFC0CB 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coaches-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .coaches-carousel {
+            position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .coaches-wrapper {
+            position: relative;
+            width: 500px;
+            height: 100%;
+            /* perspective: 1000px; - Dihapus karena transform 3D tidak digunakan */
+        }
+
+        .coach-card {
+            position: absolute; /* Penting untuk tumpang tindih */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* Perbaiki transisi */
+            cursor: pointer;
+            opacity: 0; /* Semua disembunyikan secara default */
+            pointer-events: none; /* Nonaktifkan interaksi saat tidak aktif */
+            transform: scale(0.9); /* Sedikit dikecilkan saat tidak aktif */
+        }
+
+        .coach-card.active {
+            opacity: 1; /* Hanya yang aktif yang terlihat */
+            transform: scale(1); /* Tampilkan ukuran penuh */
+            z-index: 10;
+            pointer-events: all; /* Aktifkan interaksi saat aktif */
+        }
+
+        .coach-image-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .coach-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .coach-card:hover .coach-image {
+            transform: scale(1.1);
+        }
+
+        .coach-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(255, 20, 147, 0.95) 0%, rgba(255, 20, 147, 0.7) 70%, transparent 100%);
+            padding: 2.5rem;
+            transform: translateY(100%); /* Sembunyikan sepenuhnya */
+            transition: transform 0.4s ease;
+            color: white;
+        }
+
+        .coach-card:hover .coach-overlay {
+            transform: translateY(0);
+        }
+
+        .coach-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .coach-role {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        /* Tampilkan deskripsi dan pengalaman saat overlay muncul/hover */
+        .coach-description,
+        .coach-experience {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+        }
+
+        .coach-card:hover .coach-description {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.1s;
+        }
+
+        .coach-card:hover .coach-experience {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.2s;
+        }
+        /* Akhir perbaikan untuk coach-overlay */
+
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            color: #FF1493;
+            font-size: 2rem;
+        }
+
+        .carousel-button:hover {
+            background: #FF1493;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-button-left {
+            left: -30px;
+        }
+
+        .carousel-button-right {
+            right: -30px;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 3rem;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid white;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: white;
+            width: 40px;
+            border-radius: 6px;
+        }
+
+        .indicator:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 8rem 2rem;
+            background: linear-gradient(180deg, #FFC0CB 0%, #FFE4E1 100%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+        }
+
+        .stars {
+            display: flex;
+            gap: 0.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .star {
+            color: #FF69B4;
+            font-size: 1.2rem;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #FF1493;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 2rem;
+            background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%);
+            text-align: center;
+        }
+
+        .cta-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            color: white;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .cta-description {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            background: white;
+            color: #2D3748;
+            border: 2px solid transparent;
+            padding: 1.5rem 3rem;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: white;
+            border-color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #2D3748;
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-heading {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #FFB6C1;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: #FFB6C1;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            border-radius: 25px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: background 0.3s ease;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .newsletter-button {
+            background: #FFB6C1;
+            color: white;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .newsletter-button:hover {
+            background: #FF69B4;
+            transform: scale(1.1);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links-bottom {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links-bottom a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links-bottom a:hover {
+            color: #FFB6C1;
+        }
+
+        .footer-copyright {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 4rem 2rem;
+            }
+
+            .hero-title {
+                font-size: 6rem;
+            }
+
+            .hero-image {
+                margin-top: 3rem;
+                max-width: 400px;
+            }
+
+            .coaches-wrapper {
+                width: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 4rem;
+            }
+
+            .section-title {
+                font-size: 3rem;
+            }
+
+            .programs-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .coaches-wrapper {
+                width: 300px;
+            }
+
+            .coaches-carousel {
+                height: 500px;
+            }
+
+            .carousel-button-left {
+                left: -10px;
+            }
+
+            .carousel-button-right {
+                right: -10px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">TENNIS<br>ACADEMY</h1>
+            <p class="hero-subtitle">
+                We strive to create an environment where all participants can reach their full potential
+            </p>
+            <button class="hero-button" onclick="handleJoinNow()">
+                APPLY FOR CAMP →
+            </button>
+        </div>
+        <div class="hero-image">
+            <img src="https://customer-assets.emergentagent.com/job_5991d865-a5ab-4a58-ba15-2ba747736f7c/artifacts/74rnmltw_IMG_1614.jpeg" alt="Tennis Academy Group">
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">GROW YOUR SKILL</h2>
+                <p class="section-description">
+                    We have various programs and classes that cater to<br>
+                    all ages and skill levels. Our classes include everything
+                </p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-icon" style="background-color: rgba(255, 105, 180, 0.2);">
+                        <span style="color: #FF69B4;">👥</span>
+                    </div>
+                    <h3 class="program-title">Junior Program</h3>
+                    <p class="program-description">For young players aged 6-12, focusing on fundamentals and fun</p>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon" style="background-color: rgba(255, 20, 147, 0.2);">
+                        <span style="color: #FF1493;">🏆</span>
+                    </div>
+                    <h3 class="program-title">Advanced Training</h3>
+                    <p class="program-description">Intensive training for competitive players</p>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon" style="background-color: rgba(255, 182, 193, 0.2);">
+                        <span style="color: #FFB6C1;">❤️</span>
+                    </div>
+                    <h3 class="program-title">Adult Classes</h3>
+                    <p class="program-description">Flexible sessions for all skill levels</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="coaches-section">
+        <div class="container">
+            <h2 class="section-title coaches-title">MEET OUR COACHES</h2>
+            <div class="coaches-carousel">
+                <button class="carousel-button carousel-button-left" onclick="prevCoach()">‹</button>
+                
+                <div class="coaches-wrapper" id="coachesWrapper"></div>
+
+                <button class="carousel-button carousel-button-right" onclick="nextCoach()">›</button>
+            </div>
+            
+            <div class="carousel-indicators" id="indicators"></div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title">WHAT OUR STUDENTS SAY</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="testimonial-text">"This academy transformed my game! The coaches are incredibly supportive and knowledgeable."</p>
+                    <p class="testimonial-name">- Emma Wilson</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="testimonial-text">"My daughter has grown so much in confidence and skill. We couldn't be happier!"</p>
+                    <p class="testimonial-name">- David Brown</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">LET'S PLAY</h2>
+            <p class="cta-description">
+                Whether you're looking to improve your game or just<br>
+                want to have some fun
+            </p>
+            <button class="cta-button" onclick="handleJoinNow()">APPLY FOR CAMP</button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 class="footer-heading">Programs</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Junior Program</a></li>
+                    <li><a href="#">Adult Program</a></li>
+                    <li><a href="#">Pro Program</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="footer-heading">About us</h3>
+                <ul class="footer-links">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Coaches</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3 class="footer-heading">Subscribe to Our Newsletter</h3>
+                <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+                    <input type="email" class="newsletter-input" placeholder="Your Email" required>
+                    <button type="submit" class="newsletter-button">→</button>
+                </form>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span>✉</span>
+                        <span>info@tennisacademy.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>📞</span>
+                        <span>+1 (555) 123-4567</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>📍</span>
+                        <span>123 Tennis Court, Sports City</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-links-bottom">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms Of Living</a>
+            </div>
+            <p class="footer-copyright">
+                © 2025 Tennis Academy. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+    
+        const coaches = [
+            {
+                id: 1,
+                name: "Jara",
+                role: "Professional Coach",
+                image: "https://customer-assets.emergentagent.com/job_5991d865-a5ab-4a58-ba15-2ba747736f7c/artifacts/zv67wxd3_IMG_8193.jpeg",
+                description: "Specialist in technique and mental strength",
+                experience: "10 years"
+            },
+            {
+                id: 2,
+                name: "Siti",
+                role: "Youth Development Coach",
+                image: "https://customer-assets.emergentagent.com/job_5991d865-a5ab-4a58-ba15-2ba747736f7c/artifacts/bj5hgq37_IMG_8196.jpeg",
+                description: "Expert in youth training and skill development",
+                experience: "8 years"
+            },
+            {
+                id: 3,
+                name: "Naura",
+                role: "Performance Coach",
+                image: "https://customer-assets.emergentagent.com/job_5991d865-a5ab-4a58-ba15-2ba747736f7c/artifacts/1792r5ad_IMG_8197.jpeg",
+                description: "Focused on competitive performance and strategy",
+                experience: "12 years"
+            },
+            {
+                id: 4,
+                name: "Wawa",
+                role: "Head Coach",
+                image: "https://customer-assets.emergentagent.com/job_5991d865-a5ab-4a58-ba15-2ba747736f7c/artifacts/lc3r6s84_IMG_8198.jpeg",
+                description: "Leading our academy with passion and expertise",
+                experience: "15 years"
+            }
+        ];
+
+        
+        let currentCoachIndex = 0;
+
+        // Initialize coaches carousel
+        function initializeCoaches() {
+            const wrapper = document.getElementById('coachesWrapper');
+            const indicators = document.getElementById('indicators');
+            
+            coaches.forEach((coach, index) => {
+                // Create coach card
+                const card = document.createElement('div');
+                card.className = 'coach-card';
+                card.innerHTML = `
+                    <div class="coach-image-container">
+                        <img src="${coach.image}" alt="${coach.name}" class="coach-image">
+                        <div class="coach-overlay">
+                            <div class="coach-info">
+                                <h3 class="coach-name">${coach.name}</h3>
+                                <p class="coach-role">${coach.role}</p>
+                                <p class="coach-description">${coach.description}</p>
+                                <div class="coach-experience">
+                                    <span>🏆</span>
+                                    <span>${coach.experience} experience</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                wrapper.appendChild(card);
+
+                // Create indicator
+                const indicator = document.createElement('button');
+                indicator.className = 'indicator';
+                indicator.onclick = () => goToCoach(index);
+                indicators.appendChild(indicator);
+            });
+
+            updateCarousel();
+        }
+
+        // PERBAIKAN FUNGSI updateCarousel:
+        // Cukup tampilkan satu kartu (yang aktif) dan sembunyikan yang lain.
+        function updateCarousel() {
+            const cards = document.querySelectorAll('.coach-card');
+            const indicators = document.querySelectorAll('.indicator');
+            
+            cards.forEach((card, index) => {
+                const isActive = index === currentCoachIndex;
+                
+                if (isActive) {
+                    card.classList.add('active');
+                    card.style.zIndex = '10';
+                } else {
+                    card.classList.remove('active');
+                    card.style.zIndex = '1';
+                }
+            });
+
+            indicators.forEach((indicator, index) => {
+                if (index === currentCoachIndex) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+
+        function nextCoach() {
+            currentCoachIndex = (currentCoachIndex + 1) % coaches.length;
+            updateCarousel();
+        }
+
+        function prevCoach() {
+            currentCoachIndex = (currentCoachIndex - 1 + coaches.length) % coaches.length;
+            updateCarousel();
+        }
+
+        function goToCoach(index) {
+            currentCoachIndex = index;
+            updateCarousel();
+        }
+
+        function handleJoinNow() {
+            alert('Thank you for your interest! Registration form will be available soon.');
+        }
+
+        function handleNewsletter(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input').value;
+            alert(`Thank you for subscribing with: ${email}`);
+            event.target.reset();
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCoaches();
+        });
+
+        /*
+        // Menghapus efek Parallax yang menyebabkan tata letak rusak:
+        window.addEventListener('scroll', function() {
+            const scrollY = window.scrollY;
+            const heroSection = document.querySelector('.hero-section');
+            if (heroSection) {
+                heroSection.style.transform = `translateY(${scrollY * 0.3}px)`;
+            }
+        });
+        */
+    </script>
+</body>
+</html>
